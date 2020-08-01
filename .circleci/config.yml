@@ -1,0 +1,104 @@
+version: 2.1
+
+# We use orbs to provide some common python and aws-cli tasks and shorten our config.
+# Learn more about orbs: https://circleci.com/orbs/
+orbs:
+  python: circleci/python@0.3.2
+  aws-cli: circleci/aws-cli@1.2.1
+
+
+# Yaml References enable us to DRY out our config by sharing variables across multiple jobs.
+# In this case, we are commonly using the "workspaces" feature to share
+# build artifacts and files across jobs. For example, we build and zip our Python
+# persist it to a workspace to be made available when the pushing to S3.
+references:
+  workspace_root: &workspace_root
+    /tmp/workspace
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+
+# Several steps in this config use the same, specialized steps.
+# Commands can be used to extract a common set of steps into a reusable-block.
+commands:
+  build-and-test:
+     description: "Set up virtual env and install dependencies."
+     steps:
+        - run:
+            name: Setup Virtual env
+            command: |
+              virtualenv -p python3.7 env
+              source env/bin/activate
+        - run:
+            name: Install Test Dependencies
+            command: pip install -r requirements.txt
+  package-lambda:
+      description: "Packages the Python into a zip file."
+      steps:
+        - run:
+            name: Package Dependencies
+            command: pip install --target ./package -r requirements.txt
+        - run:
+            name: Create Zipfile archive of Dependencies
+            command: |
+              cd ./package
+              zip -r9 ../function.zip .
+        - run:
+            name: Add App to Zipfile
+            command: zip -g ./function.zip main.py .env -r app
+
+jobs:
+  build:
+    executor:
+      name: python/default
+      tag: '3.7'
+    steps:
+      - *attach_workspace
+      - checkout # get code from Github
+      - build-and-test
+      - package-lambda
+      - run:
+          name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
+          command: |
+            set -exu
+            mkdir -p /tmp/workspace/lambda
+            mv function.zip /tmp/workspace/lambda/
+      - persist_to_workspace: # store the built files into the workspace for other jobs.
+            root: *workspace_root
+            paths:
+              - lambda
+  deploy-dev:
+    executor: aws-cli/default
+    working_directory: ~/fastapi-lambda
+    steps:
+      - *attach_workspace
+      - aws-cli/setup:
+          aws-region: AWS_DEFAULT_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      - run:
+          name: Deploy new Lambda
+          command: aws lambda update-function-code --function-name  fastapi-serverless-dev --zip-file fileb://tmp/workspace/lambda/function.zip
+
+
+
+# Workflows orchestrate a set of jobs to be run;
+# the jobs for this pipeline are # configured below
+workflows:
+  build-and-deploy:
+    jobs:
+      - build:
+          context: serverless-fastapi-dev
+          filters:
+            branches:
+              only:
+                - development
+      - deploy-dev:
+          context: serverless-fastapi-dev
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - development
