@@ -33,6 +33,9 @@ commands:
         - run:
             name: Install Test Dependencies
             command: pip install -r requirements.txt
+        - run:
+            name: Create ENV file
+            command: env > .env
   package-lambda:
       description: "Packages the Python into a zip file."
       steps:
