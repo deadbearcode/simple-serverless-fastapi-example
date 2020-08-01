@@ -79,7 +79,7 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run:
           name: Deploy new Lambda
-          command: aws lambda update-function-code --function-name  fastapi-serverless-dev --zip-file fileb://tmp/workspace/lambda/function.zip
+          command: aws lambda update-function-code --function-name  fastapi-serverless-dev --zip-file /tmp/workspace/lambda/function.zip
 
 
 
