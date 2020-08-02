@@ -36,6 +36,9 @@ commands:
         - run:
             name: Create ENV file
             command: env > .env
+        - run:
+            name: Run Tests
+            command: pytest
   package-lambda:
       description: "Packages the Python into a zip file."
       steps:
