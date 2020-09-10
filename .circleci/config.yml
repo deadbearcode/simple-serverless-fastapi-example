@@ -1,6 +1,9 @@
 version: 2.1
 jobs:  
-  my-job-one:    
+  my-job-one:  
+    docker:
+    # specify the version you desire here
+    - image: python:3.7
     steps:      
       - checkout      
       - run:         
@@ -27,7 +30,7 @@ workflows:
   my-workflow-name:    
     jobs:      
       - my-job-one:          
-        filters:            
-          branches:              
-            only:                
-              - cicd-test-1
+          filters:            
+            branches:              
+              only:                
+                - cicd-test-1
