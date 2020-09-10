@@ -7,7 +7,7 @@ jobs:
   my-job-one:    
     executor:
       name: python/default
-      tag: 3.7
+      tag: '3.7'
     steps:
       - checkout
       - run:
