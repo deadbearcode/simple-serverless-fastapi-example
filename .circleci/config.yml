@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Package Dependencies
           command: pip install --target ./package -r requirements.txt
+      - run:
+          name: Test
+          command: python -m pytest
     
 workflows:  
   my-workflow-name:    
