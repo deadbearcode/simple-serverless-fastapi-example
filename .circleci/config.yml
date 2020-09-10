@@ -2,32 +2,32 @@ version: 2.1
 jobs:  
   my-job-one:    
     steps:      
-			- checkout      
-			- run:         
-					name: Setup Virtual env         
-					command: |           
-						virtualenv -p python3.7 env            
-						source env/bin/activate      
-			- run:         
-					name: Install Dependencies         
-					command: pip install -r requirements.txt      
-			- run:         
-					name: Package Dependencies         
-					command: pip install --target ./package -r requirements.txt      
-			- run:         
-					name: Create Zipfile archive of Dependencies         
-					command: |            
-						cd ./package            
-						zip -r9 ../function.zip .      
-			- run:         
-					name: Add App to Zipfile         
-					command: zip -g ./function.zip main.py .env -r app
+      - checkout      
+      - run:         
+          name: Setup Virtual env         
+          command: |           
+            virtualenv -p python3.7 env            
+            source env/bin/activate      
+      - run:         
+          name: Install Dependencies         
+          command: pip install -r requirements.txt      
+      - run:         
+          name: Package Dependencies         
+          command: pip install --target ./package -r requirements.txt      
+      - run:         
+          name: Create Zipfile archive of Dependencies         
+          command: |            
+            cd ./package            
+            zip -r9 ../function.zip .      
+      - run:         
+          name: Add App to Zipfile         
+          command: zip -g ./function.zip main.py .env -r app
 
 workflows:  
-	my-workflow-name:    
-		jobs:      
-			- my-job-one:          
-				filters:            
-					branches:              
-						only:                
-							- cicd-test-1
+  my-workflow-name:    
+    jobs:      
+      - my-job-one:          
+        filters:            
+          branches:              
+            only:                
+              - cicd-test-1
