@@ -1,11 +1,4 @@
-click==7.1.2
 fastapi==0.61.1
-h11==0.9.0
-httptools==0.1.1
 mangum==0.9.2
-pydantic==1.6.1
-starlette==0.13.6
-typing-extensions==3.7.4.3
+pytest==6.0.1
 uvicorn==0.11.8
-uvloop==0.14.0
-websockets==8.1
