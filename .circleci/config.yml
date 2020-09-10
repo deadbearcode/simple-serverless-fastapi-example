@@ -20,8 +20,8 @@ jobs:
           command: pip install -r requirements.txt
       - run:
           name: Package Dependencies
-          command: pip install --target ./package -r requirements.txt      
-        
+          command: pip install --target ./package -r requirements.txt
+    
 workflows:  
   my-workflow-name:    
     jobs:      
