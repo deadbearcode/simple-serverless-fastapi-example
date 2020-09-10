@@ -6,8 +6,8 @@ orbs:
 jobs:  
   my-job-one:    
     executor:
-      name: 'python/default'
-      tag: '3.7'
+      name: python/default
+      tag: 3.7
     steps:
       - checkout
       - run:
