@@ -29,4 +29,4 @@ workflows:
           filters:            
             branches:
               only:
-                - cicd-demo-dev
+                - cicd-test-1
