@@ -1,7 +1,7 @@
 version: 2.1
 jobs:  
-	my-job-one:    
-		steps:      
+  my-job-one:    
+    steps:      
 			- checkout      
 			- run:         
 					name: Setup Virtual env         
