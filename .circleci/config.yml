@@ -17,6 +17,10 @@ jobs:
       tag: '3.7'
     steps:
       - checkout
+      # - save_cache:
+      #     key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      #     paths:
+      #       - ~/serverless-fastapi-demo
       - run:
           name: Setup Virtual env
           command: |            
@@ -28,19 +32,19 @@ jobs:
       - run:
           name: Test
           command: python -m pytest
-      - run:
-          name: Package Dependencies
-          command: pip install --target ./package -r requirements.txt
+      # - run:
+      #     name: Package Dependencies
+      #     command: pip install --target ./package -r requirements.txt
       - run:
           name: Create Zipfile archive of Dependencies
           command: |
-            cd ./package
-            zip -r9 ../function.zip .
+            cd env/lib/python3.7/site-packages
+            zip -r9 ../../../../function.zip .
       - run:
           name: Add App to Zipfile
           command: zip -g ./function.zip -r app
       - persist_to_workspace: # store the built files into the workspace for other jobs.
-          root: workspace
+          root: /workspace
           paths:
             - lambda
       - run:
