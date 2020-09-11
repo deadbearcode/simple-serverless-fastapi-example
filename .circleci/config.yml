@@ -16,8 +16,6 @@ jobs:
       name: python/default
       tag: '3.7'
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
       - checkout
       - run:
           name: Setup Virtual env
@@ -41,16 +39,17 @@ jobs:
       - run:
           name: Add App to Zipfile
           command: zip -g ./function.zip -r app
+      - persist_to_workspace: # store the built files into the workspace for other jobs.
+          root: /tmp/workspace
+          paths:
+            - lambda
       - run:
           name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
           command: |
             set -exu
             mkdir -p /tmp/workspace/lambda
             mv function.zip /tmp/workspace/lambda/
-      - persist_to_workspace: # store the built files into the workspace for other jobs.
-            root: workspace
-            paths:
-              - lambda
+
     
 workflows:  
   build-test-and-deploy:    
