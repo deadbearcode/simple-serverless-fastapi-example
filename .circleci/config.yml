@@ -3,12 +3,12 @@ version: 2.1
 orbs:  
   python: circleci/python@0.3.2
 
-references:
-  workspace_root: &workspace_root
-    /tmp/workspace
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
+# references:
+#   workspace_root: &workspace_root
+#     /tmp/workspace
+#   attach_workspace: &attach_workspace
+#     attach_workspace:
+#       at: *workspace_root
 
 jobs:  
   build-and-test:
@@ -16,7 +16,8 @@ jobs:
       name: python/default
       tag: '3.7'
     steps:
-      - *attach_workspace
+      - attach_workspace:
+          at: /tmp/workspace
       - checkout
       - run:
           name: Setup Virtual env
@@ -47,7 +48,7 @@ jobs:
             mkdir -p /tmp/workspace/lambda
             mv function.zip /tmp/workspace/lambda/
       - persist_to_workspace: # store the built files into the workspace for other jobs.
-            root: *workspace_root
+            root: workspace
             paths:
               - lambda
     
