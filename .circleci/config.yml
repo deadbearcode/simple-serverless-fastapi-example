@@ -59,15 +59,13 @@ jobs:
     working_directory: ~/fastapi-lambda
     steps:
       - attach_workspace:
-        at: .
+          at: .
       - run:
-        name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
-        command: |
-          ls -a
-          mv /tmp/workspace/lambda/function.zip /tmp/workspace/
-          ls -a
-
-
+          name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
+          command: |
+            ls -a
+            mv /tmp/workspace/lambda/function.zip /tmp/workspace/
+            ls -a
     
 workflows:  
   build-test-and-deploy:    
