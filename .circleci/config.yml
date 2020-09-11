@@ -31,7 +31,7 @@ jobs:
             zip -r9 ../function.zip .
       - run:
           name: Add App to Zipfile
-          command: zip -g ./function.zip main.py .env -r app
+          command: zip -g ./function.zip -r app
     
 workflows:  
   build-test-and-deploy:    
