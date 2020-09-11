@@ -54,18 +54,18 @@ jobs:
           paths:
             - .
 
-deploy-dev:
-  executor: aws-cli/default
-  working_directory: ~/fastapi-lambda
-  steps:
-    - attach_workspace:
-      at: .
-    - run:
-      name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
-      command: |
-        ls -a
-        mv /tmp/workspace/lambda/function.zip /tmp/workspace/
-        ls -a
+  deploy-dev:
+    executor: aws-cli/default
+    working_directory: ~/fastapi-lambda
+    steps:
+      - attach_workspace:
+        at: .
+      - run:
+        name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
+        command: |
+          ls -a
+          mv /tmp/workspace/lambda/function.zip /tmp/workspace/
+          ls -a
 
 
     
