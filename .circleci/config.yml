@@ -50,9 +50,9 @@ jobs:
             mkdir -p /tmp/workspace/lambda
             mv function.zip /tmp/workspace/lambda/
       - persist_to_workspace: # store the built files into the workspace for other jobs.
-          root: ./tmp/workspace
+          root: .
           paths:
-            - lambda
+            - .
 
     
 workflows:  
