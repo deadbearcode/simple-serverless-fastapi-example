@@ -46,7 +46,7 @@ jobs:
       - persist_to_workspace: # store the built files into the workspace for other jobs.
           root: .
           paths:
-            - lambda
+            - .
       - run:
           name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
           command: |
