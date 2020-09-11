@@ -21,6 +21,17 @@ jobs:
       - run:
           name: Test
           command: python -m pytest
+      - run:
+          name: Package Dependencies
+          command: pip install --target ./package -r requirements.txt
+      - run:
+          name: Create Zipfile archive of Dependencies
+          command: |
+            cd ./package
+            zip -r9 ../function.zip .
+      - run:
+          name: Add App to Zipfile
+          command: zip -g ./function.zip main.py .env -r app
     
 workflows:  
   build-test-and-deploy:    
