@@ -54,11 +54,30 @@ jobs:
           paths:
             - .
 
+deploy-dev:
+  executor: aws-cli/default
+  working_directory: ~/fastapi-lambda
+  steps:
+    - attach_workspace:
+      at: .
+    - run:
+      name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
+      command: |
+        ls -a
+        mv /tmp/workspace/lambda/function.zip /tmp/workspace/
+        ls -a
+
+
     
 workflows:  
   build-test-and-deploy:    
     jobs:      
       - build-and-test:
+          filters:            
+            branches:
+              only:
+                - cicd-test-1
+      - deploy-dev:
           filters:            
             branches:
               only:
