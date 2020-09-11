@@ -14,13 +14,10 @@ jobs:
           name: Setup Virtual env
           command: |            
             virtualenv -p python3.7 env            
-            source env/bin/activate
+            source ./env/bin/activate
       - run:
           name: Install Dependencies
           command: pip install -r requirements.txt
-      - run:
-          name: Package Dependencies
-          command: pip install --target ./package -r requirements.txt
       - run:
           name: Test
           command: python -m pytest
