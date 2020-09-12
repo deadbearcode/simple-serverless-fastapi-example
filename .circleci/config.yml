@@ -55,7 +55,7 @@ jobs:
       - persist_to_workspace: # store the built files into the workspace for other jobs.
           root: .
           paths:
-            - workspace
+            - function.zip
 
   deploy-dev:
     executor:
