@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Add App to Zipfile
           command: zip -g ./function.zip .env -r app
-      - persist_to_workspace: # store the built files into the workspace for other jobs.
+      - persist_to_workspace:
           root: .
           paths:
             - function.zip
