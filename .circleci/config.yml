@@ -14,14 +14,20 @@ jobs:
       - run:
           name: Setup Virtual env
           command: |            
-            virtualenv -p python3.7 env            
+            virtualenv -p python3.7 env
+            cd ./env/lib/python3.7/site-packages
+            ls -a
             source ./env/bin/activate
       - run:
           name: Install Dependencies
-          command: pip install -r requirements.txt
+          command: |
+            pip install -r requirements.txt
+            ls -a
       - run:
           name: Test
-          command: python -m pytest
+          command: |
+            python -m pytest
+            ls -a
       - run:
           name: Create Zipfile archive of Dependencies
           command: |
@@ -33,8 +39,6 @@ jobs:
             cd python3.7
             ls -a
             cd site-packages
-            ls -a
-            cd ./env/lib/python3.7/site-packages
             ls -a
             zip -r9 ../../../../function.zip .
       - run:
