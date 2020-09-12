@@ -55,7 +55,9 @@ jobs:
             - .
 
   deploy-dev:
-    executor: aws-cli/default
+    executor:
+      name: python/default
+      tag: '3.7'
     working_directory: ~/fastapi-lambda
     steps:
       - attach_workspace:
