@@ -26,6 +26,7 @@ jobs:
           name: Create Zipfile archive of Dependencies
           command: |
             cd ./env/lib/python3.7/site-packages
+            ls -a
             zip -r9 ../../../../function.zip .
       - run:
           name: Add App to Zipfile
