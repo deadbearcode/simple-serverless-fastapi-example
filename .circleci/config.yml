@@ -13,35 +13,20 @@ jobs:
       - checkout
       - run:
           name: Setup Virtual env
-          command: |            
-            virtualenv -p python3.7 env
-            source ./env/bin/activate
-            pip install -r requirements.txt
-            cd ./env/lib/python3.7/site-packages
-            ls -a
-            
+          command: virtualenv -p python3.7 env
+      - run:
+          name: Activate Virtual env
+          command: source ./env/bin/activate
       - run:
           name: Install Dependencies
-          command: |
-            pip install -r requirements.txt
-            ls -a
+          command: pip install -r requirements.txt
       - run:
           name: Test
-          command: |
-            python -m pytest
-            ls -a
+          command: python -m pytest
       - run:
           name: Create Zipfile archive of Dependencies
-          command: |
-            ls -a
-            cd env
-            ls -a
-            cd lib
-            ls -a
-            cd python3.7
-            ls -a
-            cd site-packages
-            ls -a
+          command: cd env/lib/python3.7/site-packages && /
+            ls -a && /
             zip -r9 ../../../../function.zip .
       - run:
           name: Add App to Zipfile
