@@ -11,10 +11,6 @@ jobs:
       tag: '3.7'
     steps:
       - checkout
-      # - save_cache:
-      #     key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      #     paths:
-      #       - ~/serverless-fastapi-demo
       - run:
           name: Setup Virtual env
           command: |            
@@ -60,11 +56,13 @@ workflows:
   build-test-and-deploy:    
     jobs:      
       - build-and-test:
+          context: serverless-fastapi-dev
           filters:            
             branches:
               only:
                 - cicd-test-1
       - deploy-dev:
+          context: serverless-fastapi-dev
           requires:
             - build-and-test    
           filters:        
