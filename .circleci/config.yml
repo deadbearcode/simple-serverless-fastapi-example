@@ -3,13 +3,6 @@ version: 2.1
 orbs:  
   python: circleci/python@0.3.2
 
-# references:
-#   workspace_root: &workspace_root
-#     /tmp/workspace
-#   attach_workspace: &attach_workspace
-#     attach_workspace:
-#       at: *workspace_root
-
 jobs:  
   build-and-test:
     executor:
@@ -17,10 +10,6 @@ jobs:
       tag: '3.7'
     steps:
       - checkout
-      # - save_cache:
-      #     key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      #     paths:
-      #       - ~/serverless-fastapi-demo
       - run:
           name: Setup Virtual env
           command: |            
@@ -32,9 +21,6 @@ jobs:
       - run:
           name: Test
           command: python -m pytest
-      # - run:
-      #     name: Package Dependencies
-      #     command: pip install --target ./package -r requirements.txt
       - run:
           name: Create Zipfile archive of Dependencies
           command: |
@@ -43,45 +29,12 @@ jobs:
       - run:
           name: Add App to Zipfile
           command: zip -g ./function.zip -r app
-      # - run:
-      #     name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
-      #     command: |
-      #       ls -a
-      #       set -exu
-      #       ls -a
-      #       mkdir -p /tmp/workspace/lambda
-      #       ls -a
-      #       mv function.zip /tmp/workspace/lambda/
-      - persist_to_workspace: # store the built files into the workspace for other jobs.
-          root: .
-          paths:
-            - function.zip
-
-  deploy-dev:
-    executor:
-      name: python/default
-      tag: '3.7'
-    working_directory: ~/fastapi-lambda
-    steps:
-      - attach_workspace:
-          at: ./
-      - run:
-          name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
-          command: |
-            ls -a
     
 workflows:  
   build-test-and-deploy:    
     jobs:      
       - build-and-test:
           filters:            
-            branches:
-              only:
-                - cicd-test-1
-      - deploy-dev:
-          requires:
-            - build-and-test    
-          filters:        
             branches:
               only:
                 - cicd-test-1
