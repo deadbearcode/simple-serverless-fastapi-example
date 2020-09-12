@@ -78,7 +78,9 @@ workflows:
               only:
                 - cicd-test-1
       - deploy-dev:
-          filters:            
+          requires:
+            - build-and-test    
+          filters:        
             branches:
               only:
                 - cicd-test-1
