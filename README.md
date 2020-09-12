@@ -42,3 +42,26 @@ zip -r9 /path/to/root/function.zip
 cd /path/to/root
 zip -g function.zip lambda_function.py
 ```
+
+
+
+# .circleci
+## config.yml
+# app
+## api
+### __init__.py
+### api_v1
+#### __init__.py
+#### api.py
+#### endpoints
+##### __init__.py
+##### users.py
+## core
+### __init__.py
+### config.py
+## tests
+### __init__.py
+### test_main.py
+# .gitignore
+# requirements.txt
+# .env
