@@ -19,7 +19,7 @@ jobs:
           name: Install Dependencies
           command: pip install -r requirements.txt
 
-workflow:
+workflows:
   build-test-and-deploy:
     jobs:
       - build-and-test:
