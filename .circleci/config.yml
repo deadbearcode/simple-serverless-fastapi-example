@@ -17,6 +17,7 @@ jobs:
             virtualenv -p python3.7 env
             cd ./env/lib/python3.7/site-packages
             ls -a
+            cd ../../../../
             source ./env/bin/activate
       - run:
           name: Install Dependencies
