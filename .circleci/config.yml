@@ -43,19 +43,19 @@ jobs:
       - run:
           name: Add App to Zipfile
           command: zip -g ./function.zip -r app
-      - run:
-          name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
-          command: |
-            ls -a
-            set -exu
-            ls -a
-            mkdir -p /tmp/workspace/lambda
-            ls -a
-            mv function.zip /tmp/workspace/lambda/
+      # - run:
+      #     name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
+      #     command: |
+      #       ls -a
+      #       set -exu
+      #       ls -a
+      #       mkdir -p /tmp/workspace/lambda
+      #       ls -a
+      #       mv function.zip /tmp/workspace/lambda/
       - persist_to_workspace: # store the built files into the workspace for other jobs.
           root: .
           paths:
-            - .
+            - workspace
 
   deploy-dev:
     executor:
@@ -64,7 +64,7 @@ jobs:
     working_directory: ~/fastapi-lambda
     steps:
       - attach_workspace:
-          at: .
+          at: ./
       - run:
           name: "Persist Python assets" # Move our Zipped Lambda into our workspace.
           command: |
