@@ -55,11 +55,13 @@ workflows:
   build-test-and-deploy:    
     jobs:
       - build-and-test:
+          context: cicd-demo-dev
           filters:            
             branches:
               only:
                 - cicd-demo-dev
       - deploy-dev:
+          context: cicd-demo-dev
           requires:
             - build-and-test
           filters:
