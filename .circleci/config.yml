@@ -19,13 +19,15 @@ jobs:
           command: source ./env/bin/activate
       - run:
           name: Install Dependencies
-          command: pip install -r requirements.txt
+          command: |
+            source ./env/bin/activate
+            pip install -r requirements.txt
       - run:
           name: Test
           command: python -m pytest
       - run:
           name: Create Zipfile archive of Dependencies
-          command: >
+          command: |
             cd env/lib/python3.7/site-packages;
             ls -a;
             zip -r9 ../../../../function.zip .
