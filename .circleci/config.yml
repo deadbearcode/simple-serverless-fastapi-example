@@ -24,7 +24,10 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Test
-          command: python -m pytest
+          command: |
+            source ./env/bin/activate
+            pytest
+          # command: python -m pytest
       - run:
           name: Create Zipfile archive of Dependencies
           command: |
