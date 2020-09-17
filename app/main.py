@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": f"This is our secret key: {config.settings.secret_key}"}
+    return {"message": f"This is our change!: {config.settings.secret_key}"}
 
 
 app.include_router(api_router, prefix=config.settings.prefix)
