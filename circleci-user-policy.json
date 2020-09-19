@@ -1,0 +1,25 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+			"Action": [
+				"s3:DeleteObject",
+				"s3:GetObject",
+				"s3:PutObject"
+			],
+	    "Effect": "Allow",
+	    "Resource": "<YOUR_BUCKET_ARN_HERE>/*"
+	  },
+		{            
+			"Sid": "PermissionsToCreateAndUpdateFunction",            
+			"Effect": "Allow",            
+			"Action": [                
+				"lambda:CreateFunction",                
+				"lambda:GetFunction",                
+				"lambda:UpdateFunctionCode"            
+			],            
+			"Resource": [                
+				"<YOUR_LAMBDA_ARN_HERE>"            
+			]        
+		}
+	]
+}
