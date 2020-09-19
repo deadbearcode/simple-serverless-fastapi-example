@@ -1,10 +1,13 @@
-# Simple Serverless FastAPI CICD Example
+# Simple Serverless FastAPI Example
 
 A simple serverless [FastAPI](https://fastapi.tiangolo.com/) application using [Mangum](https://pypi.org/project/mangum/) to run on an AWS [Lambda](https://aws.amazon.com/lambda/).
 
 ## Complete Walkthrough
 
-### [Simple Serverless FastAPI with AWS Lambda Complete Walkthrough](https://www.deadbearcode.com/simple-serverless-fastapi-with-aws-lambda/)
+### [Simple Serverless FastAPI with AWS Lambda Complete Walkthrough](https://deadbearcode.com/simple-serverless-fastapi-with-aws-lambda/)
+
+
+### [Serverless FastAPI CICD with CircleCi Complete Walkthrough](https://deadbearcode.com/serverless-fastapi-cicd-circleci/)
 
 ## Installation
 
